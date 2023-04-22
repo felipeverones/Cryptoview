@@ -19,7 +19,7 @@ import {
   AppConversionRates,
 } from '../sections/@dashboard/app';
 
-import WebSocketComponent from '../utils/WebSocketComponent';
+
 
 // ----------------------------------------------------------------------
 
