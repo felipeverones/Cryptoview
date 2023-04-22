@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { faker } from '@faker-js/faker';
 // @mui
@@ -18,6 +19,8 @@ import {
   AppConversionRates,
 } from '../sections/@dashboard/app';
 
+import WebSocketComponent from '../utils/WebSocketComponent';
+
 // ----------------------------------------------------------------------
 
 export default function DashboardAppPage() {
@@ -26,12 +29,12 @@ export default function DashboardAppPage() {
   return (
     <>
       <Helmet>
-        <title> Dashboard | Minimal UI </title>
+        <title> Crypto View </title>
       </Helmet>
 
       <Container maxWidth="xl">
         <Typography variant="h4" sx={{ mb: 5 }}>
-          Hi, Welcome back
+          Crypto View
         </Typography>
 
         <Grid container spacing={3}>

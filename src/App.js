@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 // routes
@@ -7,12 +8,26 @@ import ThemeProvider from './theme';
 // components
 import { StyledChart } from './components/chart';
 import ScrollToTop from './components/scroll-to-top';
+import WebSocketComponent from './utils/WebSocketComponent';
 
 // ----------------------------------------------------------------------
 
 export default function App() {
+
+  const [price, setPrice] = useState(null);
+
+  const handlePriceUpdate = (newPrice) => {
+    setPrice(newPrice);
+  };
+
   return (
-    <HelmetProvider>
+
+    <div>
+      <h1>Preço do Bitcoin:</h1>
+      <h2>{price}</h2>
+      <WebSocketComponent onPriceUpdate={handlePriceUpdate} />
+    </div>
+    /* <HelmetProvider>
       <BrowserRouter>
         <ThemeProvider>
           <ScrollToTop />
@@ -20,6 +35,7 @@ export default function App() {
           <Router />
         </ThemeProvider>
       </BrowserRouter>
-    </HelmetProvider>
+    </HelmetProvider> */
+
   );
 }
