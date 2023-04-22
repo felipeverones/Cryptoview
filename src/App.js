@@ -8,33 +8,56 @@ import ThemeProvider from './theme';
 // components
 import { StyledChart } from './components/chart';
 import ScrollToTop from './components/scroll-to-top';
-import { ws } from "./ws";
+import createWebSocket from './ws';
 
-// ----------------------------------------------------------------------
-
-export default function App() {
-  // const [socket, setSocket] = useState(null);
-  const [price, setPrice] = useState(null);
-
-  const handlePriceUpdate = (newPrice) => {
-    setPrice(newPrice);
-  };
+const App = () => {
+  const [btcPrice, setBtcPrice] = useState(null);
+  const [ethPrice, setEthPrice] = useState(null);
+  const [bnbPrice, setBnbPrice] = useState(null);
+  const [dogePrice, setDogePrice] = useState(null);
 
   useEffect(() => {
-    ws.onmessage = (message) => {
-      const data = JSON.parse(message.data);
-      // handlePriceUpdate(data.c);
-      console.log(`data ${data.c}`);
-      setPrice(data.c);
+    const btcSocket = createWebSocket('btcusdt');
+    const ethSocket = createWebSocket('ethusdt');
+    const bnbSocket = createWebSocket('bnbusdt');
+    const dogeSocket = createWebSocket('dogeusdt');
+
+    btcSocket.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      setBtcPrice(data.c);
+    };
+
+    ethSocket.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      setEthPrice(data.c);
+    };
+
+    bnbSocket.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      setBnbPrice(data.c);
+    };
+
+    dogeSocket.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      setDogePrice(data.c);
+    };
+
+    return () => {
+      btcSocket.close();
+      ethSocket.close();
+      bnbSocket.close();
+      dogeSocket.close();
     };
   }, []);
 
   return (
-
     <div>
-      <h1>Preço do Bitcoin:</h1>
-      <h2>{Number(price).toFixed(2)}</h2>
+      <h1>BTC USD: {Number(btcPrice) || 'Carregando...'}</h1>
+      <h1>ETH USD: {Number(ethPrice) || 'Carregando...'}</h1>
+      <h1>BNB USD: {Number(bnbPrice) || 'Carregando...'}</h1>
+      <h1>DOGE USD: {Number(dogePrice) || 'Carregando...'}</h1>
     </div>
+
     /* <HelmetProvider>
       <BrowserRouter>
         <ThemeProvider>
@@ -46,4 +69,8 @@ export default function App() {
     </HelmetProvider> */
 
   );
-}
+};
+
+export default App;
+
+

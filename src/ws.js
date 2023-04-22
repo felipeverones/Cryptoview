@@ -1,12 +1,22 @@
+import { w3cwebsocket as W3CWebSocket } from 'websocket';
 
-const WebSocketClient = require('websocket').w3cwebsocket;
+const createWebSocket = (symbol, callback) => {
+  const socket = new W3CWebSocket(`wss://stream.binance.com:9443/ws/${symbol.toLowerCase()}@miniTicker`);
 
-export const ws = new WebSocketClient(`wss://stream.binance.com:9443/ws/btcusdt@miniTicker`);
-
-ws.onopen = () => {
+  socket.onopen = () => {
     console.log('WebSocket connection opened');
+  };
+
+  socket.onclose = () => {
+    console.log('WebSocket connection closed');
+  };
+
+  socket.onmessage = (message) => {
+    const data = JSON.parse(message.data);
+    callback(data);
+  };
+
+  return socket;
 };
 
-ws.onclose = () => {
-    console.log('WebSocket connection closed');
-};
+export default createWebSocket; 
