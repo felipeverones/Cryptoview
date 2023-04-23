@@ -1,15 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
+import Chart from 'chart.js/auto';
 import { BrowserRouter } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 // routes
 import Router from './routes';
 // theme
 import ThemeProvider from './theme';
+
 // components
 import { StyledChart } from './components/chart';
+
+import { CryptoChart } from './components/MyChart';
+
 import ScrollToTop from './components/scroll-to-top';
+
 import createWebSocket from './ws';
+
+
 
 
 const App = () => {
@@ -78,14 +86,33 @@ const App = () => {
   }, []);
 
   return (
-    <div>
-      <h1>BTC USD: {Number(btcPrice)   ||   btc24h  || 'Carregando...'}</h1>
-      <h1>ETH USD: {Number(ethPrice)   ||   eth24h  || 'Carregando...'}</h1>
-      <h1>BNB USD: {Number(bnbPrice)   ||   bnb24h  || 'Carregando...'}</h1>
-      <h1>DOGE USD: {Number(dogePrice) ||   doge24h || 'Carregando...'}</h1>
+    <div >
+
+      <div style={{ display: "flex",alignItems:"center", justifyContent: "space-between", flexDirection: 'column' }}>
+        <h2>BTC USD: {Number(btcPrice)   ||   btc24h  || 'Carregando...'}</h2>
+        <h2>ETH USD: {Number(ethPrice)   ||   eth24h  || 'Carregando...'}</h2>
+        <h2>BNB USD: {Number(bnbPrice)   ||   bnb24h  || 'Carregando...'}</h2>
+        <h2>DOGE USD: {Number(dogePrice) ||   doge24h || 'Carregando...'}</h2>
+      </div>
+
+      <div className="App" style={{ display: "flex", justifyContent: "space-between", flexDirection: 'column' }}>
+      <CryptoChart symbol="BTCUSDT" />
+      <CryptoChart symbol="ETHUSDT" />
+      <CryptoChart symbol="BNBUSDT" />
+      <CryptoChart symbol="DOGEUSDT" />
+      </div>
+
     </div>
 
-    /* <HelmetProvider>
+    
+
+  );
+};
+
+export default App;
+
+
+/* <HelmetProvider>
       <BrowserRouter>
         <ThemeProvider>
           <ScrollToTop />
@@ -94,10 +121,3 @@ const App = () => {
         </ThemeProvider>
       </BrowserRouter>
     </HelmetProvider> */
-
-  );
-};
-
-export default App;
-
-
