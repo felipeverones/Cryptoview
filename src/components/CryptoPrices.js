@@ -35,9 +35,10 @@ export function CryptoPrices({ symbol }) {
 
   return (
     <div>
-      <h2>
-        {symbol.toUpperCase()}: {Number(symbolPrice) || symbol24h || 'Carregando...'}
-      </h2>
+      <div style={{textAlign:"center"}}>
+        <h4>{symbol.toUpperCase()}</h4>
+        <h3>{Number(symbolPrice) || symbol24h || 'Carregando...'}</h3>
+      </div>
     </div>
   );
 }

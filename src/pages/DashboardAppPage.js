@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { faker } from '@faker-js/faker';
+
 // @mui
 import { useTheme } from '@mui/material/styles';
-import { Grid, Container, Typography } from '@mui/material';
+import { Grid, Container, Typography, Card } from '@mui/material';
 // components
+import { CryptoPrices } from '../components/CryptoPrices';
 import Iconify from '../components/iconify';
 // sections
 import {
@@ -18,7 +20,6 @@ import {
   AppCurrentSubject,
   AppConversionRates,
 } from '../sections/@dashboard/app';
-
 
 
 // ----------------------------------------------------------------------
@@ -39,19 +40,19 @@ export default function DashboardAppPage() {
 
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="BTCUSD" total={714000} />
+          <AppWidgetSummary symbol="btcusdt" style={{backgroundColor:"rgb(100,150,200)"}}/>
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="New Users" total={1352831} color="info" icon={'ant-design:apple-filled'} />
+            <AppWidgetSummary symbol="ethusdt" style={{backgroundColor:"rgb(100,200,200)"}}/>
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Item Orders" total={1723315} color="warning" icon={'ant-design:windows-filled'} />
+            <AppWidgetSummary symbol="bnbusdt" style={{backgroundColor:"rgb(100,120,200)"}}/>
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Bug Reports" total={234} color="error" icon={'ant-design:bug-filled'} />
+            <AppWidgetSummary symbol="dogeusdt" style={{backgroundColor:"rgb(50,160,200)"}}/>
           </Grid>
 
           <Grid item xs={12} md={6} lg={8}>

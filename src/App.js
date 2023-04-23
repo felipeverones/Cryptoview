@@ -25,7 +25,7 @@ import createWebSocket from './ws';
 const App = () => {
 
   return (
-    <div >
+    /* <div >
 
       <div style={{ display: "flex",alignItems:"center", justifyContent: "space-between", flexDirection: 'column' }}>
         <CryptoPrices symbol="BTCUSDT"/>
@@ -41,7 +41,19 @@ const App = () => {
       <CryptoChart symbol="DOGEUSDT" />
       </div>
 
-    </div>
+    </div> */
+
+    <HelmetProvider>
+      <BrowserRouter>
+        <ThemeProvider>
+          <ScrollToTop />
+          <StyledChart />
+          <Router />
+        </ThemeProvider>
+      </BrowserRouter>
+    </HelmetProvider>
+
+    
 
 
     

@@ -2,6 +2,8 @@
 import PropTypes from 'prop-types';
 import { alpha, styled } from '@mui/material/styles';
 import { Card, Typography } from '@mui/material';
+import { CryptoPrices } from '../../../components/CryptoPrices';
+
 // utils
 import { fShortenNumber } from '../../../utils/formatNumber';
 // components
@@ -25,12 +27,12 @@ const StyledIcon = styled('div')(({ theme }) => ({
 AppWidgetSummary.propTypes = {
   color: PropTypes.string,
   icon: PropTypes.string,
-  title: PropTypes.string.isRequired,
-  total: PropTypes.number.isRequired,
+  title: PropTypes.string,
+  total: PropTypes.number,
   sx: PropTypes.object,
 };
 
-export default function AppWidgetSummary({ title, total, icon, color = 'primary', sx, ...other }) {
+export default function AppWidgetSummary({symbol, icon, color = 'primary', sx, ...other }) {
   return (
     <Card
       sx={{
@@ -43,24 +45,10 @@ export default function AppWidgetSummary({ title, total, icon, color = 'primary'
       }}
       {...other}
     >
-{/*       <StyledIcon
-        sx={{
-          color: (theme) => theme.palette[color].dark,
-          backgroundImage: (theme) =>
-            `linear-gradient(135deg, ${alpha(theme.palette[color].dark, 0)} 0%, ${alpha(
-              theme.palette[color].dark,
-              0.24
-            )} 100%)`,
-        }}
-      >
-        <Iconify icon={icon} width={24} height={24} />
-      </StyledIcon> */}
-
-      <Typography variant="h3">{fShortenNumber(total)}</Typography>
-
-      <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
-        {title}
+      <Typography variant="h4">
+        <CryptoPrices symbol={symbol}/>
       </Typography>
+
     </Card>
   );
 }
