@@ -4,6 +4,7 @@ import Chart from 'chart.js/auto';
 
 export function CryptoChart({ symbol }) {
     const [chart, setChart] = useState(null);
+    const chartContainer = useRef(null);
   
     async function fetchData() {
       const response = await fetch(`https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=1d`);
@@ -14,7 +15,7 @@ export function CryptoChart({ symbol }) {
         datasets: [{
           label: `${symbol} Price`,
           data: [],
-          borderColor: 'rgb(255, 99, 132)',
+          borderColor: 'rgb(10, 110, 130)',
           tension: 0.1
         }]
       };
@@ -23,30 +24,28 @@ export function CryptoChart({ symbol }) {
         chartData.labels.push(new Date(kline[0]).toLocaleDateString());
         chartData.datasets[0].data.push(kline[4]);
       });
-  
-      if (!chart) {
-        const newChart = new Chart(document.getElementById(`${symbol}-chart`), {
-          type: 'line',
-          data: chartData,
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-              yAxes: [
-                {
-                  ticks: {
-                    beginAtZero: true,
-                  },
-                },
-              ],
-            },
-          }
-        });
-        setChart(newChart);
-      } else {
-        chart.data = chartData;
-        chart.update();
+
+
+      if (chart) {
+        chart.destroy();
       }
+
+      const newChart = new Chart(chartContainer.current, {
+        type: 'line',
+        data: chartData,
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              ticks: {
+                beginAtZero: true,
+              },
+            },
+          },
+        }
+      });
+      setChart(newChart);
     }
   
     useEffect(() => {
@@ -54,12 +53,13 @@ export function CryptoChart({ symbol }) {
       const interval = setInterval(() => {
         fetchData();
       }, 60000);
-      return () => clearInterval(interval);
+    clearInterval(interval);
+    // clearInterval será chamado antes de desmontar o componente
     }, []);
   
     return (
-      <div style={{ width: "auto", minHeight: "500px", margin: "5% 20%"}}>
-        <canvas id={`${symbol}-chart`} />
+      <div style={{ width: "auto", minHeight: "400px", margin: "5% 20%"}}>
+        <canvas ref={chartContainer} />
       </div>
     );
   }
