@@ -9,13 +9,23 @@ export function CryptoChart({ symbol }) {
     async function fetchData() {
       const response = await fetch(`https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=1h`);
       const data = await response.json();
-  
+      
+      function getRandomColor() {
+        const letters = "0123456789ABCDEF";
+        let color = "#";
+        for (let i = 0; i < 6; i+=1) {
+          color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+      }
+
+
       const chartData = {
         labels: [],
         datasets: [{
           label: `${symbol} Price`,
           data: [],
-          borderColor: 'rgb(10, 110, 130)',
+          borderColor: getRandomColor(),
           tension: 0.1
         }]
       };
@@ -62,7 +72,7 @@ export function CryptoChart({ symbol }) {
     }, []);
   
     return (
-      <div style={{ width: "auto", minHeight: "400px", margin: "5% 20%"}}>
+      <div style={{ width: "auto", height: "400px"}}>
         <canvas ref={chartContainer} />
       </div>
     );
