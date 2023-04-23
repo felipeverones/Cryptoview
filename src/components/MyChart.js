@@ -7,7 +7,7 @@ export function CryptoChart({ symbol }) {
     const chartContainer = useRef(null);
   
     async function fetchData() {
-      const response = await fetch(`https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=1d`);
+      const response = await fetch(`https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=1h`);
       const data = await response.json();
   
       const chartData = {
@@ -21,7 +21,8 @@ export function CryptoChart({ symbol }) {
       };
   
       data.forEach(kline => {
-        chartData.labels.push(new Date(kline[0]).toLocaleDateString());
+        const date = new Date(kline[0]);
+        chartData.labels.push(`${date.toLocaleDateString()} ${date.toLocaleTimeString()}`);
         chartData.datasets[0].data.push(kline[4]);
       });
 
@@ -37,6 +38,9 @@ export function CryptoChart({ symbol }) {
           responsive: true,
           maintainAspectRatio: false,
           scales: {
+            x:{
+              display: false,
+            },
             y: {
               ticks: {
                 beginAtZero: true,
