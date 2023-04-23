@@ -1,31 +1,16 @@
-import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { faker } from '@faker-js/faker';
-
 // @mui
-import { useTheme } from '@mui/material/styles';
-import { Grid, Container, Typography, Card } from '@mui/material';
-// components
-import { CryptoPrices } from '../components/CryptoPrices';
-import Iconify from '../components/iconify';
+import { Grid, Container, Typography } from '@mui/material';
 // sections
 import {
-  AppTasks,
-  AppNewsUpdate,
-  AppOrderTimeline,
-  AppCurrentVisits,
   AppWebsiteVisits,
-  AppTrafficBySite,
   AppWidgetSummary,
-  AppCurrentSubject,
-  AppConversionRates,
 } from '../sections/@dashboard/app';
 
 
 // ----------------------------------------------------------------------
 
 export default function DashboardAppPage() {
-  const theme = useTheme();
 
   return (
     <>
