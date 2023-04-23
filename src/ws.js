@@ -4,11 +4,11 @@ const createWebSocket = (symbol, callback) => {
   const socket = new W3CWebSocket(`wss://stream.binance.com:9443/ws/${symbol.toLowerCase()}@miniTicker`);
 
   socket.onopen = () => {
-    console.log('WebSocket connection opened');
+    console.log(`${symbol.toUpperCase()} connection opened`);
   };
 
   socket.onclose = () => {
-    console.log('WebSocket connection closed');
+    console.log(`${symbol.toUpperCase()} connection closed`);
   };
 
   socket.onmessage = (message) => {
